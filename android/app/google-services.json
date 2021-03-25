@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "246257237849",
+    "firebase_url": "https://ticketing-b345a.firebaseio.com",
+    "project_id": "ticketing-b345a",
+    "storage_bucket": "ticketing-b345a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246257237849:android:da35c409ae86ac45fa1648",
+        "android_client_info": {
+          "package_name": "com.eceesystems.ticketing_ghana"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246257237849-j1pd0195r11412tiecqhc0grh7tjj2t4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtKNTqob9IBVJlWNepTkTiXJqv9nhlf50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246257237849-j1pd0195r11412tiecqhc0grh7tjj2t4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
