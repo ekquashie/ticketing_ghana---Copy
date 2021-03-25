@@ -14,7 +14,7 @@ class _LoginState extends State<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   String email = '', password = '', error = '';
-  ProgressDialog progressDialog;
+  late ProgressDialog progressDialog;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class _LoginState extends State<Login> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
-                validator: (value) => value.isEmpty ? 'Enter an email' : null,
+                validator: (value) => value!.isEmpty ? 'Enter an email' : null,
                 onChanged: (value) {
                   setState(() => email = value);
                 },
@@ -42,7 +42,7 @@ class _LoginState extends State<Login> {
               ),
               TextFormField(
                 validator: (value) =>
-                    value.isEmpty ? 'Enter a valid password' : null,
+                    value!.isEmpty ? 'Enter a valid password' : null,
                 onChanged: (value) {
                   setState(() => password = value);
                 },
@@ -76,7 +76,7 @@ class _LoginState extends State<Login> {
               RaisedButton(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
                 onPressed: () async {
-                  if (_formKey.currentState.validate()) {
+                  if (_formKey.currentState!.validate()) {
                     FirebaseFirestore.instance.clearPersistence();
                     progressDialog.show();
                     dynamic result =

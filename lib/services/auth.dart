@@ -5,7 +5,8 @@ class Authentication {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   //user object
-  TicketUser _userFromFirebaseUser(User user) {
+  TicketUser? _userFromFirebaseUser(User user) {
+    // ignore: unnecessary_null_comparison
     return user != null ? TicketUser(uid: user.uid) : null;
   }
 
