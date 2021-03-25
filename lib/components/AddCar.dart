@@ -30,7 +30,7 @@ class _AddCarState extends State<AddCar> {
               TextFormField(
                 controller: _maskedTextController,
                 validator: (value) =>
-                    value.isEmpty ? 'Enter vehicle number' : null,
+                    value!.isEmpty ? 'Enter vehicle number' : null,
                 onChanged: (value) {
                   setState(() => vehicleNumber = value);
                 },
@@ -40,7 +40,7 @@ class _AddCarState extends State<AddCar> {
               ),
               TextFormField(
                 validator: (value) =>
-                    value.isEmpty ? "Enter driver's name" : null,
+                    value!.isEmpty ? "Enter driver's name" : null,
                 onChanged: (value) {
                   setState(() => driver = value);
                 },
@@ -51,7 +51,7 @@ class _AddCarState extends State<AddCar> {
               TextFormField(
                 keyboardType: TextInputType.number,
                 validator: (value) =>
-                    value.isEmpty ? 'Enter number of seats' : null,
+                    value!.isEmpty ? 'Enter number of seats' : null,
                 onChanged: (value) {
                   setState(() => seats = value);
                 },
@@ -65,8 +65,8 @@ class _AddCarState extends State<AddCar> {
               RaisedButton(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
                 onPressed: () async {
-                  if (_formKey.currentState.validate()) {
-                    _formKey.currentState.reset();
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.reset();
                     setState(() => vehicleNumber = '');
                     vehicleSetup(vehicleNumber, seats, driver);
                     showDialog(
@@ -75,7 +75,7 @@ class _AddCarState extends State<AddCar> {
                           return AlertDialog(
                             title: Text("Vehicle added successfully!"),
                             actions: [
-                              FlatButton(
+                              TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },

@@ -14,7 +14,7 @@ class _SignUpState extends State<SignUp> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final Authentication _auth = Authentication();
 
-  ProgressDialog progressDialog;
+  late ProgressDialog progressDialog;
 
   //field state
   String email = '', password = '', station = '', error = '', phone = '';
@@ -38,7 +38,7 @@ class _SignUpState extends State<SignUp> {
                 ),
                 TextFormField(
                   validator: (value) =>
-                      value.isEmpty ? 'Enter a valid email' : null,
+                      value!.isEmpty ? 'Enter a valid email' : null,
                   onChanged: (value) {
                     setState(() {
                       email = value;
@@ -47,7 +47,7 @@ class _SignUpState extends State<SignUp> {
                   decoration: InputDecoration(labelText: 'Email'),
                 ),
                 TextFormField(
-                  validator: (value) => value.length < 6
+                  validator: (value) => value!.length < 6
                       ? 'Password must be 6 characters long'
                       : null,
                   onChanged: (value) {
@@ -61,7 +61,7 @@ class _SignUpState extends State<SignUp> {
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Station'),
                   validator: (value) =>
-                      value.isEmpty ? 'Enter station name' : null,
+                      value!.isEmpty ? 'Enter station name' : null,
                   onChanged: (value) {
                     setState(() => station = value);
                   },
@@ -70,7 +70,7 @@ class _SignUpState extends State<SignUp> {
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(labelText: 'Phone'),
                   validator: (value) =>
-                      value.isEmpty ? 'Enter phone number' : null,
+                      value!.isEmpty ? 'Enter phone number' : null,
                   onChanged: (value) {
                     setState(() => phone = value);
                   },
@@ -85,8 +85,8 @@ class _SignUpState extends State<SignUp> {
                 RaisedButton(
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
                   onPressed: () async {
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.reset();
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.reset();
                       progressDialog.show();
                       dynamic result =
                           await _auth.registerEmailAndPass(email, password);

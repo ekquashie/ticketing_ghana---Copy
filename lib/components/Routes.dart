@@ -8,7 +8,8 @@ class Routes extends StatefulWidget {
 }
 
 class _RoutesState extends State<Routes> {
-  Stream routes = users.doc(uid).collection("routes").snapshots();
+  Stream<QuerySnapshot> routes =
+      users.doc(uid).collection("routes").snapshots();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +28,7 @@ class _RoutesState extends State<Routes> {
                 snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
             }
-            if (snapshot.data.docs.length == 0) {
+            if (snapshot.data!.docs.length == 0) {
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -43,7 +44,7 @@ class _RoutesState extends State<Routes> {
               );
             }
             return ListView(
-              children: snapshot.data.docs.map((DocumentSnapshot document) {
+              children: snapshot.data!.docs.map((DocumentSnapshot document) {
                 return Card(
                   elevation: 5,
                   margin: EdgeInsets.symmetric(
@@ -69,7 +70,7 @@ class _RoutesState extends State<Routes> {
                               return AlertDialog(
                                 title: Text("Route deleted!"),
                                 actions: [
-                                  FlatButton(
+                                  TextButton(
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },

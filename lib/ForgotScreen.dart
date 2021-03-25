@@ -36,7 +36,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
                     });
                   },
                   validator: (value) =>
-                      value.isEmpty ? 'Enter your email' : null,
+                      value!.isEmpty ? 'Enter your email' : null,
                 ),
                 SizedBox(
                   height: 15,
@@ -44,17 +44,17 @@ class _ForgotScreenState extends State<ForgotScreen> {
                 RaisedButton(
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                   onPressed: () async {
-                    if (_formKey.currentState.validate()) {
+                    if (_formKey.currentState!.validate()) {
                       FirebaseAuth.instance
                           .sendPasswordResetEmail(email: email);
-                      _formKey.currentState.reset();
+                      _formKey.currentState!.reset();
                       showDialog(
                           context: context,
                           builder: (context) {
                             return AlertDialog(
                               title: Text("Password reset link has been sent!"),
                               actions: [
-                                FlatButton(
+                                TextButton(
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },

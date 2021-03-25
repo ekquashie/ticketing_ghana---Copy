@@ -27,7 +27,7 @@ class _AddRouteState extends State<AddRoute> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
-                validator: (value) => value.isEmpty ? 'Enter origin' : null,
+                validator: (value) => value!.isEmpty ? 'Enter origin' : null,
                 onChanged: (value) {
                   setState(() => origin = value);
                 },
@@ -37,7 +37,7 @@ class _AddRouteState extends State<AddRoute> {
               ),
               TextFormField(
                 validator: (value) =>
-                    value.isEmpty ? 'Enter destination' : null,
+                    value!.isEmpty ? 'Enter destination' : null,
                 onChanged: (value) {
                   setState(() => destination = value);
                 },
@@ -47,7 +47,7 @@ class _AddRouteState extends State<AddRoute> {
               ),
               TextFormField(
                 keyboardType: TextInputType.number,
-                validator: (value) => value.isEmpty ? 'Enter fare' : null,
+                validator: (value) => value!.isEmpty ? 'Enter fare' : null,
                 onChanged: (value) {
                   setState(() => fare = value);
                 },
@@ -61,8 +61,8 @@ class _AddRouteState extends State<AddRoute> {
               RaisedButton(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
                 onPressed: () async {
-                  if (_formKey.currentState.validate()) {
-                    _formKey.currentState.reset();
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.reset();
                     routeSetup(origin, destination, fare);
                     showDialog(
                         context: context,
@@ -70,7 +70,7 @@ class _AddRouteState extends State<AddRoute> {
                           return AlertDialog(
                             title: Text("Route added successfully!"),
                             actions: [
-                              FlatButton(
+                              TextButton(
                                   onPressed: () async {
                                     Navigator.pop(context);
                                   },

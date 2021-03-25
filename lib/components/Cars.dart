@@ -44,7 +44,7 @@ class _CarsState extends State<Cars> {
               );
             }
             return ListView(
-              children: snapshot.data.docs.map((DocumentSnapshot document) {
+              children: snapshot.data!.docs.map((DocumentSnapshot document) {
                 return Card(
                   elevation: 5,
                   margin: EdgeInsets.symmetric(

@@ -18,8 +18,10 @@ class _PassengersState extends State<Passengers> {
 
   var dateSelect = formatDate(DateTime.now(), [dd, "-", mm, "-", yyyy]);
   var carSelect = " ";
-  Stream vehicleStream = users.doc(uid).collection('vehicles').snapshots();
-  Stream passStream = users.doc(uid).collection('passengers').snapshots();
+  Stream<QuerySnapshot> vehicleStream =
+      users.doc(uid).collection('vehicles').snapshots();
+  Stream<QuerySnapshot> passStream =
+      users.doc(uid).collection('passengers').snapshots();
   CollectionReference passengerRef = users.doc(uid).collection('passengers');
   var tempCar, tempDate, newDay, newMonth, newYear;
 
@@ -56,7 +58,7 @@ class _PassengersState extends State<Passengers> {
               );
             }
             return ListView(
-              children: snapshot.data.docs.map((DocumentSnapshot document) {
+              children: snapshot.data!.docs.map((DocumentSnapshot document) {
                 return Card(
                   elevation: 5,
                   margin: EdgeInsets.symmetric(
@@ -175,7 +177,7 @@ class _PassengersState extends State<Passengers> {
             actions: [
               Row(
                 children: [
-                  FlatButton(
+                  TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -183,7 +185,7 @@ class _PassengersState extends State<Passengers> {
                         style: TextStyle(color: Color(0xff40407a))),
                   ),
                   SizedBox(width: 40),
-                  FlatButton(
+                  TextButton(
                       onPressed: () {
                         setState(() {
                           dateSelect = newDay + "-" + newMonth + "-" + newYear;
@@ -214,14 +216,15 @@ class _PassengersState extends State<Passengers> {
                     return CircularProgressIndicator();
                   } else {
                     List<DropdownMenuItem> cars = [];
-                    for (int i = 0; i < snapshot.data.docs.length; i++) {
-                      DocumentSnapshot documentSnapshot = snapshot.data.docs[i];
+                    for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                      DocumentSnapshot documentSnapshot =
+                          snapshot.data!.docs[i];
                       cars.add(DropdownMenuItem(
                         child: Text(documentSnapshot.id),
                         value: "${documentSnapshot.id}",
                       ));
                     }
-                    return DropdownButtonFormField(
+                    return DropdownButtonFormField<dynamic>(
                       hint: Text("Select vehicle",
                           style: TextStyle(color: Color(0xff40407a))),
                       items: cars,
@@ -238,7 +241,7 @@ class _PassengersState extends State<Passengers> {
             actions: [
               Row(
                 children: [
-                  FlatButton(
+                  TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -246,7 +249,7 @@ class _PassengersState extends State<Passengers> {
                         style: TextStyle(color: Color(0xffb33939))),
                   ),
                   SizedBox(width: 40),
-                  FlatButton(
+                  TextButton(
                       onPressed: () {
                         setState(() {
                           carSelect = tempCar.toString();

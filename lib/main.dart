@@ -72,6 +72,7 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<TicketUser>(context);
+    // ignore: unnecessary_null_comparison
     if (user == null) {
       return Authenticate();
     } else {

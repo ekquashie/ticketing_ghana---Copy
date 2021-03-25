@@ -23,17 +23,19 @@ class _HomeState extends State<Home> {
 
   GlobalKey<FormState> _formKey = GlobalKey();
 
-  String carSelect, routeSelect, stationName, stationPhone;
+  late String carSelect, routeSelect, stationName, stationPhone;
   var fare, seats, _timer;
-  int fareSelect;
+  late int fareSelect;
 
   BluetoothManager _bluetoothManager = BluetoothManager.instance;
 
   List<Map<String, dynamic>> data = [{}];
   Map<String, dynamic> ticketMap = {};
 
-  Stream routeStream = users.doc(uid).collection("routes").snapshots();
-  Stream vehicleStream = users.doc(uid).collection("vehicles").snapshots();
+  Stream<QuerySnapshot> routeStream =
+      users.doc(uid).collection("routes").snapshots();
+  Stream<QuerySnapshot> vehicleStream =
+      users.doc(uid).collection("vehicles").snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class _HomeState extends State<Home> {
         title: Text('Tticksy'),
         centerTitle: true,
         actions: [
-          FlatButton(
+          TextButton(
             onPressed: () async {
               await _auth.signOut();
             },
@@ -200,9 +202,9 @@ class _HomeState extends State<Home> {
                         return CircularProgressIndicator();
                       } else {
                         List<DropdownMenuItem> cars = [];
-                        for (int i = 0; i < snapshot.data.docs.length; i++) {
+                        for (int i = 0; i < snapshot.data!.docs.length; i++) {
                           DocumentSnapshot documentSnapshot =
-                              snapshot.data.docs[i];
+                              snapshot.data!.docs[i];
                           cars.add(DropdownMenuItem(
                             child: Text(
                               documentSnapshot.id +
@@ -213,7 +215,7 @@ class _HomeState extends State<Home> {
                             value: "${documentSnapshot.id}",
                           ));
                         }
-                        return DropdownButtonFormField(
+                        return DropdownButtonFormField<dynamic>(
                           hint: Text("Select vehicle",
                               style: TextStyle(color: Color(0xff40407a))),
                           items: cars,
@@ -221,9 +223,10 @@ class _HomeState extends State<Home> {
                             final snackBar = SnackBar(
                               content: Text("You selected $car"),
                             );
-                            Scaffold.of(context).showSnackBar(snackBar);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                             setState(() {
-                              carSelect = car;
+                              carSelect = car.toString();
                             });
                           },
                           value: carSelect,
@@ -232,6 +235,7 @@ class _HomeState extends State<Home> {
                       }
                     }),
                 Builder(builder: (context) {
+                  // ignore: unnecessary_null_comparison
                   if (carSelect == null) {
                     return Text("");
                   } else {
@@ -262,16 +266,16 @@ class _HomeState extends State<Home> {
                         return CircularProgressIndicator();
                       } else {
                         List<DropdownMenuItem> routes = [];
-                        for (int i = 0; i < snapshot.data.docs.length; i++) {
+                        for (int i = 0; i < snapshot.data!.docs.length; i++) {
                           DocumentSnapshot documentSnapshot =
-                              snapshot.data.docs[i];
+                              snapshot.data!.docs[i];
                           String id = documentSnapshot.id;
                           routes.add(DropdownMenuItem(
                             child: Text(id),
                             value: id,
                           ));
                         }
-                        return DropdownButtonFormField(
+                        return DropdownButtonFormField<dynamic>(
                           hint: Text("Select route",
                               style: TextStyle(color: Color(0xff40407a))),
                           items: routes,
@@ -279,9 +283,10 @@ class _HomeState extends State<Home> {
                             final snackBar = SnackBar(
                               content: Text("You selected $route"),
                             );
-                            Scaffold.of(context).showSnackBar(snackBar);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                             setState(() {
-                              routeSelect = route;
+                              routeSelect = route.toString();
                             });
                           },
                           value: routeSelect,
@@ -290,6 +295,7 @@ class _HomeState extends State<Home> {
                       }
                     }),
                 Builder(builder: (context) {
+                  // ignore: unnecessary_null_comparison
                   if (routeSelect == null) {
                     return Text('');
                   } else {
@@ -330,9 +336,12 @@ class _HomeState extends State<Home> {
                   padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
                   onPressed: () {
                     _bluetoothManager.state.listen((val) {
-                      if (val == 12 && _formKey.currentState.validate()) {
+                      if (val == 12 && _formKey.currentState!.validate()) {
+                        // ignore: unnecessary_null_comparison
                         if (routeSelect != null &&
+                            // ignore: unnecessary_null_comparison
                             carSelect != null &&
+                            // ignore: unnecessary_null_comparison
                             fareSelect != null) {
                           ticketMap = {
                             "route": routeSelect,
@@ -347,8 +356,11 @@ class _HomeState extends State<Home> {
                             data.add(ticketMap);
                           });
                         }
+                        // ignore: unnecessary_null_comparison
                         if (routeSelect != null &&
+                            // ignore: unnecessary_null_comparison
                             carSelect != null &&
+                            // ignore: unnecessary_null_comparison
                             fareSelect != null) {
                           Navigator.push(
                               context,
@@ -377,7 +389,7 @@ class _HomeState extends State<Home> {
                               return AlertDialog(
                                 title: Text("Bluetooth Disconnected!"),
                                 actions: [
-                                  FlatButton(
+                                  TextButton(
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },

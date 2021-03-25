@@ -34,7 +34,7 @@ class _AddPassengerState extends State<AddPassenger> {
             actions: [
               Row(
                 children: [
-                  FlatButton(
+                  TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -85,7 +85,7 @@ class _AddPassengerState extends State<AddPassenger> {
                 children: [
                   TextFormField(
                     validator: (value) =>
-                        value.isEmpty ? 'Enter passenger name' : null,
+                        value!.isEmpty ? 'Enter passenger name' : null,
                     onChanged: (value) {
                       setState(() => passName = value);
                     },
@@ -95,8 +95,9 @@ class _AddPassengerState extends State<AddPassenger> {
                   ),
                   TextFormField(
                     keyboardType: TextInputType.number,
-                    validator: (value) =>
-                        value.isEmpty ? "Enter passenger's phone number" : null,
+                    validator: (value) => value!.isEmpty
+                        ? "Enter passenger's phone number"
+                        : null,
                     onChanged: (value) {
                       setState(() => passNumber = value);
                     },

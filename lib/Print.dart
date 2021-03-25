@@ -42,7 +42,7 @@ class _PrintState extends State<Print> {
   Stream stationStream = users.doc(uid).collection("station").snapshots();
 
   List<PrinterBluetooth> _devices = [];
-  String _deviceMsg;
+  late String _deviceMsg;
   BluetoothManager bluetoothManager = BluetoothManager.instance;
 
   @override
@@ -97,7 +97,7 @@ class _PrintState extends State<Print> {
                     subtitle: Text(_devices[index].address),
                     onTap: () {
                       _startPrint(_devices[index]);
-                      widget.data.length = null;
+                      widget.data.length = 0;
                     },
                   );
                 }),
